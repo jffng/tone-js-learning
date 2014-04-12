@@ -1,0 +1,111 @@
+<html>
+<head>
+	<title>BASIC</title>
+
+	<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+	
+	<script type="text/javascript" src='../../build/Tone.js'></script>
+	
+</head>
+<body>
+<span style="text-align: center;">USE HOME KEYS TO PLAY OVER THE Ab LYDIAN AUGMENTED CHORD AND MAKE BEAUTIFUL MUSIC</span>
+	<script type="text/javascript">
+	var tone = new Tone();
+	var osc = Tone.context.createOscillator();
+	var noise = new Tone.Noise();
+	var filter = Tone.context.createBiquadFilter();
+
+	filter.type = "lowpass";
+	filter.frequency.value = 0;
+	filter.Q.value = 100;
+
+	noise.connect(filter);
+	filter.toMaster();
+	// osc.start();
+
+	tone.input.connect(tone.output);
+	tone.toMaster();
+
+
+	// $(document).click(function(){
+	// 	var now = Tone.context.currentTime;
+	// 	filter.frequency.setValueAtTime(0, now);
+	// 	filter.frequency.linearRampToValueAtTime(20000,now + 1);
+	// 	filter.frequency.linearRampToValueAtTime(0,now + 2);
+	// 	console.log("clicked");
+	// })
+
+	for (var i = 0; i < 5; i++) {
+		osc[i] = Tone.context.createOscillator();
+		osc[i].connect(tone);
+		osc[i].start();
+	}
+
+	osc[0].frequency.value = 415;
+	osc[1].frequency.value = 523;
+	osc[2].frequency.value = 659;
+	osc[3].frequency.value = 784;
+
+
+	// [Ab Bb C D E F G Ab] 
+	var onKeyDown = function ( event ) {
+
+		switch ( event.keyCode ) {
+
+			case 65: // a
+				osc[4].frequency.value = 830.61;
+				console.log("a");
+				break;
+
+			case 83: // s
+				osc[4].frequency.value = 932.33;
+				break;
+
+			case 68: // d
+				osc[4].frequency.value = 1046.50;
+				break;
+
+			case 74: // j
+				osc[4].frequency.value = 1174.66;			
+				break;
+
+			case 75: // k
+				osc[4].frequency.value = 1318.51;			
+				break;
+
+			case 76: // l
+				osc[4].frequency.value = 1396.91;
+				break;
+
+			case 186: // ;
+				osc[4].frequency.value = 1567.98;
+				break;												
+		}
+
+	};
+
+	document.addEventListener( 'keydown', onKeyDown, false );
+
+
+	// var player = new Tone.Player('../../audio/casio/C2.mp3');
+
+	// player.load(function(){
+	// 	console.log('loaded');
+	// });
+
+	// player.toMaster();
+	
+	// function onKeyPress (event) {
+	// 	switch (event.keycode ){
+	// 		case 67: 
+	// 			player.start();	
+	// 			console.log("c");
+	// 	}
+	// };
+
+	// document.addEventListener('keydown', onKeyPress, false);
+
+
+	</script>
+</body>
+</html>
