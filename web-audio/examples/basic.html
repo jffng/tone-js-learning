@@ -8,7 +8,9 @@
 	
 </head>
 <body>
-<span style="text-align: center;">USE HOME KEYS TO PLAY OVER THE Ab LYDIAN AUGMENTED CHORD AND MAKE BEAUTIFUL MUSIC</span>
+<span style="text-align: center;">USE HOME KEYS (a,s,d,f,j,k,l,;) <br>
+PLAY OVER THE Ab LYDIAN AUGMENTED CHORD <br>
+MAKE BEAUTIFUL MUSIC</span>
 	<script type="text/javascript">
 	var tone = new Tone();
 	var osc = Tone.context.createOscillator();
@@ -54,7 +56,6 @@
 
 			case 65: // a
 				osc[4].frequency.value = 830.61;
-				console.log("a");
 				break;
 
 			case 83: // s
@@ -65,20 +66,24 @@
 				osc[4].frequency.value = 1046.50;
 				break;
 
-			case 74: // j
+			case 70: // j
 				osc[4].frequency.value = 1174.66;			
 				break;
 
-			case 75: // k
+			case 74: // k
 				osc[4].frequency.value = 1318.51;			
 				break;
 
-			case 76: // l
+			case 75: // l
 				osc[4].frequency.value = 1396.91;
 				break;
 
-			case 186: // ;
+			case 76: // ;
 				osc[4].frequency.value = 1567.98;
+				break;	
+
+			case 186: // ;
+				osc[4].frequency.value = 1661.22;
 				break;												
 		}
 
