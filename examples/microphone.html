@@ -1,0 +1,27 @@
+<html>
+<head>
+	<title>MIC</title>
+
+	<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<!-- 	<script type="text/javascript" src="../deps/require.js"></script> -->
+	<script type="text/javascript" src='../build/Tone.js'></script>
+	
+</head>
+<body>
+	<script type="text/javascript">
+	var tone = new Tone();
+	var mic = new Tone.Microphone();
+
+	mic.start();
+
+	var feedbackDelay = new Tone.FeedbackDelay(.25);
+	mic.connect(feedbackDelay);
+	mic.toMaster();
+	feedbackDelay.toMaster();
+
+	tone.input.connect(tone.output);
+	tone.toMaster();
+
+	</script>
+</body>
+</html>
