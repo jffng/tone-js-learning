@@ -1,0 +1,32 @@
+<html>
+<head>
+	<title>Basic Player</title>
+	<script type="text/javascript" src="../build/Tone.js"></script>
+</head>
+<body>
+	<button>trigger</button>
+	<div id='loading'>loading...</button>
+	<script type="text/javascript">
+
+		var player = new Tone.Player("../audio/casio/A1.mp3");
+
+		//connect it to the output
+		player.toMaster();
+		
+		//once it's loaded, add the event triggers
+		player.load(function(){
+			document.querySelector('#loading').remove();
+		});
+
+		var button = document.querySelector('button');
+
+		button.onmousedown = function(){
+			player.loop(0, .1, .11);
+		};
+
+		button.onmouseup = function(){
+			player.stop();
+		}
+	</script>
+</body>
+</html>

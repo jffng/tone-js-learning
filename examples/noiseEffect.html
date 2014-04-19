@@ -1,0 +1,40 @@
+<html>
+<head>
+	<title>Effect Example</title>
+
+	<script type="text/javascript" src="../build/Tone.js"></script>
+	
+</head>
+<body>
+	<input type='range'>
+	<script type="text/javascript">
+
+		//extend effect
+		var NoiseEffect = function(){
+			//call the super class
+			Tone.Effect.call(this);
+
+			//components
+			this.noise = new Tone.Noise("brown");
+
+			//connections
+			this.connectEffect(this.noise);
+		}
+		//extend effect
+		Tone.extend(NoiseEffect, Tone.Effect);
+
+		//make a new one
+		var noiseEffect = new NoiseEffect();
+		noiseEffect.toMaster();
+
+		//INTERFACE//
+
+		var range = document.querySelector("input");
+
+		range.onchange = function(){
+			var val = range.value;
+			noiseEffect.setDry(val / 50 - 1);
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<html>
+<head>
+	<title>LFO</title>
+
+	<script type="text/javascript" src="../build/Tone.js"></script>
+	
+</head>
+<body>
+	<button onclick='startLFO()'>start</button>
+	<script type="text/javascript">
+		//components
+		var noise = new Tone.Noise("brown");
+		var lfo = new Tone.LFO("4n");
+		
+		//connections
+		noise.toMaster();
+		lfo.connect(noise.output.gain);
+		
+		//INTERFACE//
+
+		var button = document.querySelector("button");
+
+		var started = false;
+
+		//called when the start button is clicked
+		function startLFO(){
+			if (!started){
+				lfo.start();
+				button.textContent = "stop";
+			} else {
+				lfo.stop();
+				button.textContent = "start";
+			}
+			started = !started;
+		}
+	</script>
+</body>
+</html>

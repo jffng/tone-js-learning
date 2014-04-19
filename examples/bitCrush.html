@@ -1,0 +1,37 @@
+<html>
+<head>
+	<title>Bit Crush</title>
+
+	<script type="text/javascript" src='../build/Tone.js'></script>
+
+</head>
+<body>
+	<button>start</button>
+	<script type="text/javascript">
+	
+		//components
+		var sine = new Tone.Oscillator();
+		var crusher = new Tone.BitCrusher(5);
+		
+		//connections
+		sine.connect(crusher);
+		crusher.toMaster();
+
+		//INTERFACE//
+
+		var button = document.querySelector("button");
+
+		//called when the start button is clicked
+		button.onclick = function(){
+			if (!sine.started){
+				sine.start();
+				button.textContent = "stop";
+			} else {
+				sine.stop();
+				button.textContent = "start";
+			}
+		}
+		
+	</script>
+</body>
+</html>
