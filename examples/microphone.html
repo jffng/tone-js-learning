@@ -8,20 +8,56 @@
 	
 </head>
 <body>
-	<script type="text/javascript">
+<!-- 	<button id="button">start</button>
+ -->	
+ 	<canvas id="testCanvas"></canvas>
+ 	<script type="text/javascript">
 	var tone = new Tone();
 	var mic = new Tone.Microphone();
+	var feedbackDelay = new Tone.FeedbackDelay(.1);
+	var analyzer = Tone.context.createAnalyser();
+	var frequencyData = new Uint8Array(analyzer.frequencyBinCount);
 
-	mic.start();
-
-	var feedbackDelay = new Tone.FeedbackDelay(.25);
+	mic.connect(analyzer);
 	mic.connect(feedbackDelay);
-	mic.toMaster();
+
+	// mic.toMaster();
 	feedbackDelay.toMaster();
+	analyzer.toMaster();
 
 	tone.input.connect(tone.output);
 	tone.toMaster();
 
+	mic.start();
+
+	var drawCanvas = document.getElementById("testCanvas"); 
+	var drawContext = drawCanvas.getContext("2d"); 
+
+    drawCanvas.width = window.innerWidth;
+    drawCanvas.height = window.innerHeight;
+
+	function update () {
+		requestAnimationFrame(update);
+		analyzer.getByteFrequencyData(frequencyData)
+		var freqDomain = new Uint8Array(analyzer.frequencyBinCount);
+		analyzer.getByteFrequencyData(freqDomain);
+		drawContext.clearRect ( 0 , 0 , window.innerWidth , window.innerHeight );
+		for (var i = 0; i < analyzer.frequencyBinCount; i++) {
+		  var value = freqDomain[i];
+		  var percent = value / 256;
+		  var height = window.innerHeight * percent;
+		  var offset = window.innerHeight - height - 1;
+		  var barWidth = window.innerWidth/analyzer.frequencyBinCount;
+		  var hue = i/analyzer.frequencyBinCount * 360;
+		  drawContext.fillStyle = 'hsl(' + hue + ', 100%, 50%)';
+		  drawContext.fillRect(i * barWidth, offset, barWidth, height);
+		}
+
+	}
+
+	update();
+
 	</script>
+
 </body>
 </html>
